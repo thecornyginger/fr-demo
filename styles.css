@@ -1,0 +1,187 @@
+/* Global styles */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #141414;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Chat container */
+#chat-container {
+    width: 100vw;
+    height: 100vh;
+    max-width: 400px;
+    padding: calc(env(safe-area-inset-top, 10px)) 10px calc(env(safe-area-inset-bottom, 10px)) 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    scroll-behavior: smooth;
+}
+
+/* Message styling */
+.message-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 5px 0;
+    width: 100%;
+}
+
+/* Common message style */
+.message {
+    padding: 20px 10px;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    animation: fadeIn 0.3s ease-in-out;
+    text-align: left;
+    background-color: #1e1e1e;
+    overflow: hidden; /* Important for smooth height transition */
+    transition: height 0.6s ease; /* Smooth height transition */
+}
+
+/* Story messages */
+.story {
+    color: #f4f4f4;
+	text-align:center;
+}
+
+/* NPC messages */
+.npc {
+    color: #f4f4f4;
+	font-style: italic;
+    text-align: left;
+    padding-left: 8px;
+    align-items: center; /* Vertically center text */
+}
+
+/* Animated text element */
+.message-text {
+    display: inline-block;
+    white-space: pre-wrap; /* Allow line wrapping */
+    overflow-wrap: break-word; /* Properly break long words */
+    max-width: 100%;
+    overflow: hidden; /* Prevent overflow */
+    word-break: break-word; /* Ensure long words break */
+    line-height: 1.2; /* Consistent line height */
+    visibility: visible; /* Ensure text is visible */
+    color: inherit; /* Inherit color from parent */
+}
+
+/* Choice container */
+.choice-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Force horizontal layout for exactly 2 choices */
+.choice-container.two-choices {
+    flex-wrap: nowrap;
+    gap: 5px;
+}
+
+/* Choice buttons */
+.player-choice {
+    flex: 1 1 48%;
+    padding: 20px 10px;
+    background-color: #e40712;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+	font-weight:bold;
+	text-transform: uppercase;
+	animation: fadeIn 0.3s ease-in-out;
+    box-sizing: border-box;
+}
+
+.player-choice:hover {
+    background-color: rgb(153,33,25);
+	transition: 0.2s ease;
+}
+
+/* Disabled player choices */
+.player-choice.disabled {
+    background-color: #444;
+    color: #888;
+    cursor: default;
+    opacity: 0.7;
+}
+
+.player-choice.selected {
+    background-color: #e40712;
+    color: white;
+    cursor: default;
+}
+
+/* Animation for new messages */
+@keyframes fadeIn {
+    from { opacity: 0;}
+    to { opacity: 1;}
+}
+
+/* Typing indicator container */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #1e1e1e;
+    border-left: 4px solid #91aebd;
+    border-radius: 5px;
+    max-width: 80%;
+    color: #91aebd;
+    margin-bottom: 10px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Typing dots animation */
+.typing-dots {
+    display: flex;
+    gap: 5px;
+    margin-left: 5px;
+}
+
+.typing-dots span {
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: #91aebd;
+    border-radius: 50%;
+    animation: blink 1.2s infinite both;
+}
+
+.typing-dots span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.typing-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes blink {
+    0%, 80%, 100% {
+        opacity: 0.2;
+    }
+    40% {
+        opacity: 1;
+    }
+}
