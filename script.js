@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const story = [
         // Initial story setup
         { id: 'start', type: 'story', text: 'You find it half-buried in the dirt, its smooth surface glinting in the dim light.', delay: 1000, nextId: 'stone' },
-        { id: 'stone', type: 'npc', text: 'A small, round stone—ordinary at first glance, but the faint arcane etchings along its edges suggest otherwise.', delay: 1000, nextId: 'initial-choice' },
+        { id: 'stone', type: 'story', text: 'A small, round stone—ordinary at first glance, but the faint arcane etchings along its edges suggest otherwise.', delay: 1000, nextId: 'initial-choice' },
 
         // Initial choice: Move along or Pick it up
         { id: 'initial-choice', type: 'choice', choices: [
