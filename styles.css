@@ -88,15 +88,11 @@ html, body {
 
 .message-text span {
     opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.2s ease-in-out;
 }
-
 .message-text span.visible {
     opacity: 1;
-    transform: translateY(0);
 }
-
 
 
 /* Choice container */
