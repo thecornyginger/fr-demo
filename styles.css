@@ -158,8 +158,8 @@ html, body {
 
 /* Disabled player choices */
 .player-choice.disabled {
-    background-color: #444;
-    color: #888;
+    background-color: #474343;
+    color: #2b2929;
     cursor: default;
     opacity: 0.7;
 }
