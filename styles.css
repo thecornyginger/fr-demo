@@ -135,7 +135,7 @@ html, body {
 /* Choice buttons */
 .player-choice {
     font-family: 'Roboto Condensed', sans-serif;
-	font-size:16px;
+	font-size:18px;
 	flex: 1 1 48%;
     padding: 20px 10px;
     background-color: #e40712;
