@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
  
-	
+	// Typewriter Effect
 function displayMagicalText(text, type = 'story', callback) {
     const messageElement = document.createElement('div');
     messageElement.classList.add('message', type);
@@ -70,7 +70,9 @@ function displayMagicalText(text, type = 'story', callback) {
     chatContainer.appendChild(messageWrapper);
     chatContainer.scrollTop = chatContainer.scrollHeight;
 
-    // Smooth height transition
+    // Make the div full width and fully visible immediately
+    messageElement.style.width = '100%';
+    messageElement.style.opacity = '1';
     messageElement.style.height = 'auto';
     const initialHeight = messageElement.offsetHeight;
     messageElement.style.height = '0px';
@@ -83,20 +85,18 @@ function displayMagicalText(text, type = 'story', callback) {
         if (index < text.length) {
             const charSpan = document.createElement('span');
             charSpan.textContent = text.charAt(index);
+            charSpan.style.opacity = '0'; // Start hidden for smooth transition
             textSpan.appendChild(charSpan);
 
-            // Add a delay to make the character appear smoothly
-            setTimeout(() => {
-                charSpan.classList.add('visible');
-            }, 100); // Increased delay for smoother fade-in
+            requestAnimationFrame(() => {
+                charSpan.style.opacity = '1'; // Smooth fade-in
+            });
 
             index++;
-            
-            // Smoothly adjust height during typing
             const newHeight = messageElement.scrollHeight + 'px';
             messageElement.style.height = newHeight;
 
-            setTimeout(typeNextCharacter, 80); // Adjusted typing speed for smoothness
+            setTimeout(typeNextCharacter, 50);
         } else if (callback) {
             callback();
         }
@@ -104,8 +104,6 @@ function displayMagicalText(text, type = 'story', callback) {
 
     typeNextCharacter();
 }
-
-
 
     // Function to load and display story elements by ID
     function loadStoryById(id) {

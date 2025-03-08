@@ -1,6 +1,7 @@
 /* Global styles */
 html, body {
     height: 100%;
+	width:100%;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -42,21 +43,38 @@ html, body {
     align-items: flex-start;
     margin: 5px 0;
     width: 100%;
+	transition: height 0.8s ease;
+
 }
 
 /* Common message style */
 .message {
     padding: 20px 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     width: 100%;
     box-sizing: border-box;
     word-wrap: break-word;
-    animation: fadeIn 0.3s ease-in-out;
+    animation: fadeInScale 1.2s ease forwards;
     text-align: left;
     background-color: #1e1e1e;
     overflow: hidden; /* Important for smooth height transition */
-    transition: height 0.6s ease; /* Smooth height transition */
+	min-height: 50px; /* Ensure the div is fully visible from the start */
+	transform: scale(1);
+    transition: opacity 1.2s ease, transform 1.2s ease, height 1.2s ease;
 }
+
+/* Keyframe for smoother fade-in and scale-up */
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 
 /* Story messages */
 .story {
@@ -88,7 +106,7 @@ html, body {
 
 .message-text span {
     opacity: 0;
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity 1s ease-in-out;
 }
 .message-text span.visible {
     opacity: 1;
@@ -99,7 +117,7 @@ html, body {
 .choice-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 10px;
     justify-content: space-between;
     width: 100%;
     box-sizing: border-box;
@@ -108,7 +126,7 @@ html, body {
 /* Force horizontal layout for exactly 2 choices */
 .choice-container.two-choices {
     flex-wrap: nowrap;
-    gap: 5px;
+    gap: 10px;
 }
 
 /* Choice buttons */
@@ -118,12 +136,13 @@ html, body {
     background-color: #e40712;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     text-align: center;
 	font-weight:bold;
 	text-transform: uppercase;
-	animation: fadeIn 0.3s ease-in-out;
+	transform: scale(1);
+	animation: fadeInScale 1.2s ease forwards;
     box-sizing: border-box;
 }
 
@@ -150,56 +169,5 @@ html, body {
 @keyframes fadeIn {
     from { opacity: 0;}
     to { opacity: 1;}
-}
-
-/* Typing indicator container */
-.typing-indicator {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background-color: #1e1e1e;
-    border-left: 4px solid #91aebd;
-    border-radius: 5px;
-    max-width: 80%;
-    color: #91aebd;
-    margin-bottom: 10px;
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-/* Typing dots animation */
-.typing-dots {
-    display: flex;
-    gap: 5px;
-    margin-left: 5px;
-}
-
-.typing-dots span {
-    display: block;
-    width: 8px;
-    height: 8px;
-    background-color: #91aebd;
-    border-radius: 50%;
-    animation: blink 1.2s infinite both;
-}
-
-.typing-dots span:nth-child(1) {
-    animation-delay: 0s;
-}
-
-.typing-dots span:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.typing-dots span:nth-child(3) {
-    animation-delay: 0.4s;
-}
-
-@keyframes blink {
-    0%, 80%, 100% {
-        opacity: 0.2;
-    }
-    40% {
-        opacity: 1;
-    }
 }
 
