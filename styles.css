@@ -5,7 +5,7 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #141414;
+    background-color: #262627;
     font-family: 'Roboto Condensed', sans-serif;
     display: flex;
     justify-content: center;
@@ -30,7 +30,7 @@ html, body {
     justify-content: flex-start;
     gap: 10px;
     scroll-behavior: smooth;
-    background-color: #141414;
+    background-color: #262627;
     min-height: 100vh;
     height: 100%;
     min-height: -webkit-fill-available;
@@ -50,14 +50,13 @@ html, body {
 /* Common message style */
 .message {
 	padding: 20px 10px;
-	font-size:16px;
     border-radius: 10px;
     width: 100%;
     box-sizing: border-box;
     word-wrap: break-word;
     animation: fadeInScale 1.2s ease forwards;
     text-align: left;
-    background-color: #1e1e1e;
+    background-color: #2c2e33;
     overflow: hidden; /* Important for smooth height transition */
 	min-height: 50px; /* Ensure the div is fully visible from the start */
 	transform: scale(1);
@@ -106,6 +105,7 @@ html, body {
     line-height: 1.2; /* Consistent line height */
     visibility: visible; /* Ensure text is visible */
     color: inherit; /* Inherit color from parent */
+	
 }
 
 .message-text span {
@@ -136,10 +136,10 @@ html, body {
 /* Choice buttons */
 .player-choice {
     font-family: 'Roboto Condensed', sans-serif;
-	font-size:18px;
+	font-size: 18px;
 	flex: 1 1 48%;
     padding: 20px 10px;
-    background-color: #e40712;
+    background-color: #dc5c2a;
     color: white;
     border: none;
     border-radius: 10px;
@@ -153,7 +153,7 @@ html, body {
 }
 
 .player-choice:hover {
-    background-color: rgb(153,33,25);
+    background-color: #993b1f;
 	transition: 0.2s ease;
 }
 
@@ -166,7 +166,7 @@ html, body {
 }
 
 .player-choice.selected {
-    background-color: #e40712;
+    background-color: #dc5c2a;
     color: white;
     cursor: default;
 }
