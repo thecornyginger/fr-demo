@@ -70,13 +70,14 @@ document.addEventListener('DOMContentLoaded', () => {
 { id: 'seemagical-1', type: 'npc', text: 'There’s a window, but all I can see is an endless fog. I can’t tell if it’s day or night.', delay: 1000, nextId: 'seemagical-2' },
 { id: 'seemagical-2', type: 'npc', text: 'Candles are floating near the ceiling. They’re giving off a soft, blue light, but the ceiling is way too high to reach.', delay: 1000, nextId: 'seemagical-3' },
 { id: 'seemagical-3', type: 'npc', text: 'There are strange symbols carved into the floor. They seem to shift when I’m not looking directly at them.', delay: 1000, nextId: 'seemagical-4' },
-{ id: 'seemagical-4', type: 'npc', text: 'There’s a door—wooden, reinforced with iron. I’ve tried everything to open it, but it’s like it’s fused shut.', delay: 1000, nextId: 'seemagical-5' },
+{ id: 'seemagical-4', type: 'npc', text: 'I see some bookshelves. Might be worth a look.', delay: 1000, nextId: 'seemagical-5' },
 { id: 'seemagical-5', type: 'npc', text: 'There’s also a staircase leading down, but it’s blocked by a shimmering barrier. It looks like a wall of light, pulsing with faint runes.', delay: 1000, nextId: 'seemagical-6' },
 { id: 'seemagical-6', type: 'npc', text: 'What should I do?', delay: 1000, nextId: 'seemagical-choices' },
 
 { id: 'seemagical-choices', type: 'choice', choices: [
     { text: 'Try to break the barrier.', nextId: 'breakbarrier-1' },
     { text: 'Examine the symbols on the floor.', nextId: 'examinesymbols-1' }
+	{ text: 'Check the bookshelves.', nextId: 'examinebooks-1' }
 ], delay: 1500 },
 
 // Choice: What do you remember?
