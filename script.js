@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 { id: 'seemagical-choices', type: 'choice', choices: [
     { text: 'Try to break the barrier.', nextId: 'breakbarrier-1' },
-    { text: 'Examine the symbols on the floor.', nextId: 'examinesymbols-1' }
+    { text: 'Examine the symbols on the floor.', nextId: 'examinesymbols-1' },
 	{ text: 'Check the bookshelves.', nextId: 'examinebooks-1' }
 ], delay: 1500 },
 
