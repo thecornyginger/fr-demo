@@ -134,9 +134,9 @@ html, body {
 /* Choice buttons */
 .player-choice {
     font-family: 'Roboto Condensed', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     flex: 1 1 48%;
-    padding: 20px 10px;
+    padding: 20px;
     background-color: #d95f3f;
     color: #f0ede6;
     border: none;
@@ -144,7 +144,6 @@ html, body {
     cursor: pointer;
     text-align: center;
     font-weight: bold;
-    text-transform: uppercase;
     transform: scale(1);
     animation: fadeInScale 1.2s ease forwards;
     box-sizing: border-box;

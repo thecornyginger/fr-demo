@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 { id: 'whoareyou-4', type: 'npc', text: 'I think it might be a wizard’s tower.', delay: 1000, nextId: 'whoareyou-5' },
 { id: 'whoareyou-5', type: 'npc', text: 'Please, you have to help me.', delay: 1000, nextId: 'whoareyou-choices' },
 { id: 'whoareyou-choices', type: 'choice', choices: [
-    { text: 'Where are you?', nextId: 'howcanihelpyou-1' },
+    { text: 'How can I help?', nextId: 'howcanihelpyou-1' },
     { text: 'What do you remember?', nextId: 'whatdoyouremember-1' }
 ], delay: 1500 },
 		
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 { id: 'ihearyou-choices', type: 'choice', choices: [
     { text: 'What kind of stone?', nextId: 'whatkindofstone-1' },
-    { text: 'How can I help you?', nextId: 'howcanihelpyou-1' }
+    { text: 'How can I help?', nextId: 'howcanihelpyou-1' }
 ], delay: 1500 },
 		
 		// Choice: What kind of stone
@@ -59,24 +59,23 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		// Choice: Do you see any doors?
 { id: 'doorsstairs-1', type: 'npc', text: 'There’s a single wooden door, iron-bound, and it won’t budge. I’ve tried everything.', delay: 1000, nextId: 'doorsstairs-2' },
-{ id: 'doorsstairs-2', type: 'npc', text: 'There’s also a staircase leading down, but a shimmering barrier blocks the way.', delay: 1000, nextId: 'doorsstairs-choices' },
+{ id: 'doorsstairs-2', type: 'npc', text: 'There’s also a staircase leading down, but a shimmering barrier blocks the way.', delay: 1000, nextId: 'doorsstairs-3' },
+		{ id: 'doorsstairs-3', type: 'npc', text: 'And these strange symbols carved into the floor. They seem to... shift when I’m not looking directly at them.', delay: 1000, nextId: 'doorsstairs-choices' },
 
 { id: 'doorsstairs-choices', type: 'choice', choices: [
-    { text: 'Try to break the barrier.', nextId: 'breakbarrier-1' },
-    { text: 'Examine the symbols on the floor.', nextId: 'examinesymbols-1' }
+    { text: 'Examine the barrier.', nextId: 'breakbarrier-1' },
+    { text: 'Examine the symbols.', nextId: 'examinesymbols-1' }
 ], delay: 1500 },
 
 		// Choice: Describe the room
 { id: 'seemagical-1', type: 'npc', text: 'There’s a window, but all I can see is an endless fog. I can’t tell if it’s day or night.', delay: 1000, nextId: 'seemagical-2' },
 { id: 'seemagical-2', type: 'npc', text: 'Candles are floating near the ceiling. They’re giving off a soft, blue light, but the ceiling is way too high to reach.', delay: 1000, nextId: 'seemagical-3' },
-{ id: 'seemagical-3', type: 'npc', text: 'There are strange symbols carved into the floor. They seem to shift when I’m not looking directly at them.', delay: 1000, nextId: 'seemagical-4' },
-{ id: 'seemagical-4', type: 'npc', text: 'I see some bookshelves. Might be worth a look.', delay: 1000, nextId: 'seemagical-5' },
-{ id: 'seemagical-5', type: 'npc', text: 'There’s also a staircase leading down, but it’s blocked by a shimmering barrier. It looks like a wall of light, pulsing with faint runes.', delay: 1000, nextId: 'seemagical-6' },
-{ id: 'seemagical-6', type: 'npc', text: 'What should I do?', delay: 1000, nextId: 'seemagical-choices' },
+{ id: 'seemagical-3', type: 'npc', text: 'I see some bookshelves. Might be worth a look.', delay: 1000, nextId: 'seemagical-4' },
+{ id: 'seemagical-4', type: 'npc', text: 'There’s also a staircase leading down, but it’s blocked by a shimmering barrier. It looks like a wall of light, pulsing with faint runes.', delay: 1000, nextId: 'seemagical-5' },
+{ id: 'seemagical-5', type: 'npc', text: 'What should I do?', delay: 1000, nextId: 'seemagical-choices' },
 
 { id: 'seemagical-choices', type: 'choice', choices: [
-    { text: 'Try to break the barrier.', nextId: 'breakbarrier-1' },
-    { text: 'Examine the symbols on the floor.', nextId: 'examinesymbols-1' },
+    { text: 'Examine the barrier.', nextId: 'breakbarrier-1' },
 	{ text: 'Check the bookshelves.', nextId: 'examinebooks-1' }
 ], delay: 1500 },
 
