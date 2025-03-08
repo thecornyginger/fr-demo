@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 { id: 'whoareyou-4', type: 'npc', text: 'I think it might be a wizard’s tower.', delay: 1000, nextId: 'whoareyou-5' },
 { id: 'whoareyou-5', type: 'npc', text: 'Please, you have to help me.', delay: 1000, nextId: 'whoareyou-choices' },
 { id: 'whoareyou-choices', type: 'choice', choices: [
-    { text: 'Where are you?', nextId: 'whereareyou-1' },
+    { text: 'Where are you?', nextId: 'howcanihelpyou-1' },
     { text: 'What do you remember?', nextId: 'whatdoyouremember-1' }
 ], delay: 1500 },
 		
