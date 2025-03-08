@@ -163,3 +163,24 @@ function displayMagicalText(text, type = 'story', callback) {
     loadStoryById('start');
 });
 
+
+// Autoplay Music
+document.addEventListener('DOMContentLoaded', () => {
+    const backgroundMusic = document.getElementById('background-music');
+    backgroundMusic.volume = 0.2; // Set the volume (0.0 to 1.0)
+    
+    // Attempt to play the music immediately
+    function playBackgroundMusic() {
+        backgroundMusic.play().catch(() => {
+            console.log('Autoplay prevented. Waiting for user interaction...');
+        });
+    }
+    
+    // Add event listeners for any interaction
+    window.addEventListener('click', playBackgroundMusic, { once: true });
+    window.addEventListener('touchstart', playBackgroundMusic, { once: true });
+
+    // Ensure music starts if already allowed
+    playBackgroundMusic();
+});
+
