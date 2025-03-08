@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// Choice: Examine the books
 { id: 'examinebooks-1', type: 'npc', text: 'Okay, I’ll take a closer look.', delay: 1000, nextId: 'examinebooks-2' },
-{ id: 'examinebooks-2', type: 'story', text: '(The mysterious person is busy)', delay: 1000, nextId: 'examinebooks-3' },
+{ id: 'examinebooks-2', type: 'story', text: 'The mystery person is busy', delay: 5000, nextId: 'examinebooks-3' },
 { id: 'examinebooks-3', type: 'npc', text: 'These books are... strange. They are written in languages I don’t recognize.', delay: 1000, nextId: 'examinebooks-4' },
 { id: 'examinebooks-4', type: 'npc', text: 'There\'s this one book... It\'s like it\'s glowing. But it also isn\'t.', delay: 1000, nextId: 'examinebooks-5' },
 { id: 'examinebooks-5', type: 'npc', text: 'The cover is bound in leather, with a symbol on it—like an eye with a flame in the center.', delay: 1000, nextId: 'examinebooks-6' },
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
 { id: 'readtoend-8', type: 'npc', text: 'So many eyes. They’re not just watching... they’re feeding.', delay: 1000, nextId: 'readtoend-9' },
 { id: 'readtoend-9', type: 'npc', text: 'They see everything. They see me. No... they see through me.', delay: 1000, nextId: 'readtoend-10' },
 { id: 'readtoend-10', type: 'npc', text: 'It’s cold. So cold. I can’t... I can’t feel my body. I can’t...', delay: 1000, nextId: 'readtoend-11' },
-{ id: 'readtoend-11', type: 'story', text: 'The faint, disoriented voice disappears. Forever.', delay: 1000, nextId: 'readtoend-12' },
+{ id: 'readtoend-11', type: 'story', text: 'The faint, disoriented voice disappears.', delay: 1000, nextId: 'readtoend-12' },
 		{ id: 'readtoend-12', type: 'end', text: 'Forever.', delay: 1000, nextId: 'start' },
 
 		// Choice: Close the book
@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// Choice: Try to break the barrier
 { id: 'breakbarrier-1', type: 'npc', text: 'Alright. Gimme a sec.', delay: 1000, nextId: 'breakbarrier-2' },
-{ id: 'breakbarrier-2', type: 'story', text: '(The person is busy.)', delay: 1000, nextId: 'breakbarrier-3' },
+{ id: 'breakbarrier-2', type: 'story', text: 'The mystery person is busy.', delay: 5000, nextId: 'breakbarrier-3' },
 { id: 'breakbarrier-3', type: 'npc', text: 'I made up my mind. I\'m going to touch it.', delay: 1000, nextId: 'breakbarrier-4' },
 { id: 'breakbarrier-4', type: 'npc', text: 'The barrier feels... warm? And there’s this weird tingle—like when you touch something with static electricity.', delay: 1000, nextId: 'breakbarrier-5' },
 { id: 'breakbarrier-5', type: 'npc', text: 'There\'s this... hum, almost like... Ow! — a spark shot out. I think it burned me.', delay: 1000, nextId: 'breakbarrier-6' },
@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		
 		// Choice: Finish activating the runes
-{ id: 'activaterunes-1', type: 'story', text: '(The mysterious person is busy.)', delay: 1000, nextId: 'activaterunes-2' },
+{ id: 'activaterunes-1', type: 'story', text: 'The mystery person is busy.', delay: 5000, nextId: 'activaterunes-2' },
 { id: 'activaterunes-2', type: 'npc', text: 'They’re all glowing now—soft, steady light.', delay: 1000, nextId: 'activaterunes-3' },
 { id: 'activaterunes-3', type: 'npc', text: 'The humming has turned into a gentle, almost musical tone. It feels... calming.', delay: 1000, nextId: 'activaterunes-4' },
 { id: 'activaterunes-4', type: 'npc', text: 'The barrier is barely visible. It’s just a faint shimmer in the air.', delay: 1000, nextId: 'activaterunes-5' },
