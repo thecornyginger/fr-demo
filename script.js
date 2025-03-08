@@ -55,45 +55,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
  
 	
+function displayMagicalText(text, type = 'story', callback) {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', type);
 
+    const textSpan = document.createElement('span');
+    textSpan.classList.add('message-text');
+    messageElement.appendChild(textSpan);
 
-    // Function to display text with typing animation
-    function displayMagicalText(text, type = 'story', callback) {
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('message', type);
+    const messageWrapper = document.createElement('div');
+    messageWrapper.classList.add('message-wrapper');
+    messageWrapper.appendChild(messageElement);
 
-        const textSpan = document.createElement('span');
-        textSpan.classList.add('message-text');
-        messageElement.appendChild(textSpan);
+    chatContainer.appendChild(messageWrapper);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
 
-        const messageWrapper = document.createElement('div');
-        messageWrapper.classList.add('message-wrapper');
-        messageWrapper.appendChild(messageElement);
+    // Smooth height transition
+    messageElement.style.height = 'auto';
+    const initialHeight = messageElement.offsetHeight;
+    messageElement.style.height = '0px';
+    messageElement.offsetHeight; // Force reflow
+    messageElement.style.height = initialHeight + 'px';
 
-        chatContainer.appendChild(messageWrapper);
-        chatContainer.scrollTop = chatContainer.scrollHeight;
+    let index = 0;
 
-        messageElement.style.height = 'auto';
-        let initialHeight = messageElement.offsetHeight;
-        messageElement.style.height = '0px';
-        messageElement.offsetHeight; // Force reflow
-        messageElement.style.height = initialHeight + 'px';
+    function typeNextCharacter() {
+        if (index < text.length) {
+            const charSpan = document.createElement('span');
+            charSpan.textContent = text.charAt(index);
+            textSpan.appendChild(charSpan);
 
-        let index = 0;
-        function typeNextCharacter() {
-            if (index < text.length) {
-                textSpan.textContent += text.charAt(index);
-                index++;
-                const newHeight = messageElement.scrollHeight + 'px';
-                messageElement.style.height = newHeight;
-                setTimeout(typeNextCharacter, 60);
-            } else if (callback) {
-                callback();
-            }
+            // Add a delay to make the character appear smoothly
+            setTimeout(() => {
+                charSpan.classList.add('visible');
+            }, 100); // Increased delay for smoother fade-in
+
+            index++;
+            
+            // Smoothly adjust height during typing
+            const newHeight = messageElement.scrollHeight + 'px';
+            messageElement.style.height = newHeight;
+
+            setTimeout(typeNextCharacter, 80); // Adjusted typing speed for smoothness
+        } else if (callback) {
+            callback();
         }
-
-        typeNextCharacter();
     }
+
+    typeNextCharacter();
+}
+
+
 
     // Function to load and display story elements by ID
     function loadStoryById(id) {
