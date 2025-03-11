@@ -11,7 +11,9 @@ html, body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    min-height: -webkit-fill-available;
+    @supports (-webkit-touch-callout: none) {
+        min-height: -webkit-fill-available;
+    }
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -19,10 +21,11 @@ html, body {
 #chat-container {
     width: 100%;
     max-width: 400px;
-    padding-top: calc(env(safe-area-inset-top, 0px) + 10px);
-    padding-right: calc(env(safe-area-inset-right, 0px) + 10px);
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
-    padding-left: calc(env(safe-area-inset-left, 0px) + 10px);
+    --safe-padding: 10px;
+    padding-top: calc(env(safe-area-inset-top, 0px) + var(--safe-padding));
+    padding-right: calc(env(safe-area-inset-right, 0px) + var(--safe-padding));
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--safe-padding));
+    padding-left: calc(env(safe-area-inset-left, 0px) + var(--safe-padding));
     box-sizing: border-box;
     border-radius: 10px;
     overflow-y: auto;
@@ -216,4 +219,9 @@ html, body {
         background-color: #d95f3f;
         color: #f0ede6;
     }
+}
+
+.player-choice:focus {
+    outline: 2px solid #f0ede6;
+    outline-offset: 2px;
 }
