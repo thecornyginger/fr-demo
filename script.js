@@ -289,377 +289,92 @@ document.addEventListener('DOMContentLoaded', () => {
 
 { id: 'demo-end', type: 'story', text: 'You didn\'t even reach the end of the demo.', delay: 2000 },
 
-{ id: 'shutbook-1', type: 'story', text: 'Waiting 10 seconds...', delay: 1000, nextId: 'shutbook-2' },
+{ id: 'shutbook-1', type: 'story', text: '(Waiting 10 seconds...)', delay: 1000, nextId: 'shutbook-2' },
 { id: 'shutbook-2', type: 'npc', text: 'The voices are gone. The ink... it\'s fading.', delay: 1000, nextId: 'shutbook-3' },
 { id: 'shutbook-3', type: 'npc', text: 'I don\'t know what that was, but I don\'t want to try again.', delay: 1000, nextId: 'shutbook-4' },
-{ id: 'shutbook-4', type: 'npc', text: 'Alright, gimme a few minutes to catch my breath.', delay: 1000, nextId: 'shutbook-wait' },
-{ id: 'shutbook-wait', type: 'story', text: 'Waiting 5 minutes...', delay: 1000, nextId: 'shutbook-conditional' },
-{ id: 'shutbook-conditional', type: 'story', text: '', delay: 1000, nextId: () => {
-    if (!storyState.get('examinedRunes')) {
-        console.log('Moving to examinerunes-1 (examinedRunes is false)');
-        return 'shutbook-runes';
-    } 
-    if (storyState.get('lookedAroundTheRoom') && storyState.get('returnedToRunes')) {
-        console.log('Moving to stepintocircle-1 (lookedAroundTheRoom & returnedToRunes are true)');
-        return 'stepintocircle-1';
-    } 
-    if (storyState.get('lookedAroundTheRoom') && !storyState.get('returnedToRunes')) {
-        console.log('Moving to returntorunes-1 (lookedAroundTheRoom is true, returnedToRunes is false)');
-        return 'returntorunes-1';
-    } 
-    console.log('Moving to lookaround-1 (lookedAroundTheRoom is false)');
-    return 'lookaround-1';
-} },
-{ id: 'shutbook-runes', type: 'npc', text: 'Okay. Let\'s hope these runes are less terrifying than that was.', delay: 1000, nextId: 'shutbook-runes-wait' },
-{ id: 'shutbook-runes-wait', type: 'story', text: 'Waiting 10 seconds...', delay: 1000, nextId: 'examinerunes-1' },
-
-
-
-{ id: 'examinerunes-1', type: 'npc', text: 'Alright, now for the runes.', delay: 1000, nextId: 'examinerunes-wait', onArrival: () => { 
-    storyState.set('examinedRunes', true); 
-    console.log('Variable $examinedRunes set to:', storyState.variables.examinedRunes);
-} },
-
-{ id: 'examinerunes-wait', type: 'story', text: '(Waiting for 5 minutes...)', delay: 1000, nextId: 'examinerunes-2' },
-
-{ id: 'examinerunes-2', type: 'npc', text: 'They\'re drawn in silver dust, spread in a perfect circle across the floor. But the strange part? They\'re shifting.', delay: 1000, nextId: 'examinerunes-3' },
-{ id: 'examinerunes-3', type: 'npc', text: 'I\'ll look away for a second, and when I glance back, they\'ve changed. Just slightly, but enough to notice.', delay: 1000, nextId: 'examinerunes-4' },
-{ id: 'examinerunes-4', type: 'npc', text: 'I don\'t know if that means they\'re active... or if they\'re reacting to me.', delay: 1000, nextId: 'examinerunes-conditional' },
-
-// Conditional text based on readBook and examinedBooks
-{ id: 'examinerunes-conditional', type: 'story', text: '', delay: 1000, nextId: () => {
-    if (storyState.get('readBook')) {
-        console.log('Showing readBook reaction.');
-        return 'examinerunes-readbook';
-    } 
-    if (storyState.get('examinedBooks')) {
-        console.log('Showing examinedBooks reaction.');
-        return 'examinerunes-examinedbooks';
-    } 
-    console.log('Showing default reaction.');
-    return 'examinerunes-default';
-} },
-
-// If readBook is true
-{ id: 'examinerunes-readbook', type: 'npc', text: 'The symbols are pulsing... *faster* than before. I don\'t like this.', delay: 1000, nextId: 'examinerunes-readbook-2' },
-{ id: 'examinerunes-readbook-2', type: 'npc', text: 'I swear, the shapes—they\'re forming the same letters that burned into my hands from the book.', delay: 1000, nextId: 'examinerunes-choices' },
-
-// If examinedBooks is true
-{ id: 'examinerunes-examinedbooks', type: 'npc', text: 'I don\'t know if this is connected, but the books gave me the same feeling—like they were *watching me*.', delay: 1000, nextId: 'examinerunes-examinedbooks-2' },
-{ id: 'examinerunes-examinedbooks-2', type: 'npc', text: 'If the books are waiting for something, maybe these runes are, too. I just don\'t know *what* they want.', delay: 1000, nextId: 'examinerunes-choices' },
-
-// If neither examinedBooks nor readBook is true
-{ id: 'examinerunes-default', type: 'npc', text: 'The runes feel... charged. Like they\'ve been waiting for something. I don\'t know if stepping into them is a good idea, but I don\'t see many other options.', delay: 1000, nextId: 'examinerunes-choices' },
-
-// Choices after examining runes
-{ id: 'examinerunes-choices', type: 'choice', choices: [
-    { text: 'Step into the circle.', nextId: 'stepintocircle-1' },
-    { text: 'Leave them alone.', nextId: 'leaverunes-1' }
-], delay: 1500 },
-
-{ id: 'leaverunes-1', type: 'npc', text: 'Yeah... I think that\'s the right call.', delay: 1000, nextId: 'leaverunes-2' },
-{ id: 'leaverunes-2', type: 'npc', text: 'There\'s something off about these runes. Magic, obviously, but not the kind I want to mess with blindly.', delay: 1000, nextId: 'leaverunes-conditional' },
-
-// Conditional text based on examinedBooks and readBook
-{ id: 'leaverunes-conditional', type: 'story', text: '', delay: 1000, nextId: () => {
-    if (storyState.get('examinedBooks')) {
-        console.log('Showing examinedBooks reaction.');
-        return 'leaverunes-examinedbooks';
-    } 
-    if (storyState.get('readBook')) {
-        console.log('Showing readBook reaction.');
-        return 'lookaround-1';
-    } 
-    console.log('Showing default reaction.');
-    return 'leaverunes-default';
-} },
-
-// If examinedBooks is true
-{ id: 'leaverunes-examinedbooks', type: 'npc', text: 'I don\'t like the feeling they\'re giving me.', delay: 1000, nextId: 'leaverunes-examinedbooks-2' },
-{ id: 'leaverunes-examinedbooks-2', type: 'npc', text: 'Maybe I need to figure out more about this place first. There has to be some kind of clue hidden here.', delay: 1000, nextId: 'leaverunes-examinedbooks-choices' },
-
-{ id: 'leaverunes-examinedbooks-choices', type: 'choice', choices: [
-    { text: 'Return to the books.', nextId: 'returntobooks-1' },
-    { text: 'Look around the room.', nextId: 'lookaround-1' }
-], delay: 1500 },
-
-// If neither examinedBooks nor readBook is true
-{ id: 'leaverunes-default', type: 'npc', text: 'I don\'t like the way they shift when I\'m not looking. It feels like they\'re waiting for me to step in, like they *want* something from me.', delay: 1000, nextId: 'leaverunes-default-2' },
-{ id: 'leaverunes-default-2', type: 'npc', text: 'Maybe I need to figure out more about this place first. There has to be some kind of clue hidden here.', delay: 1000, nextId: 'leaverunes-default-choices' },
-
-{ id: 'leaverunes-default-choices', type: 'choice', choices: [
-    { text: 'Examine the books.', nextId: 'examinebooks-1' },
-    { text: 'Look around the room.', nextId: 'lookaround-1' }
-], delay: 1500 },
-
-{ id: 'returntobooks-1', type: 'npc', text: '', delay: 1000, nextId: 'returntobooks-conditional', onArrival: () => { 
-    storyState.set('returnedtoBooks', true); 
-    console.log('Variable $returnedtoBooks set to:', storyState.variables.returnedtoBooks);
-} },
-
-// Determine the next dialogue based on conditions
-{ id: 'returntobooks-conditional', type: 'story', text: '', delay: 1000, nextId: () => {
-    if (storyState.get('returnedtoBooks') && storyState.get('returnedtoRunes')) {
-        console.log('Both returnedtoBooks and returnedtoRunes are true.');
-        return 'returntobooks-both';
-    } 
-    if (storyState.get('returnedtoBooks') && !storyState.get('returnedtoRunes')) {
-        console.log('Returned to books but not to runes.');
-        return 'returntobooks-booksOnly';
-    } 
-    console.log('First time returning to books.');
-    return 'returntobooks-firstTime';
-} },
-
-// If returnedtoBooks is true AND returnedtoRunes is false
-{ id: 'returntobooks-booksOnly', type: 'npc', text: 'Well... here we are again. Something still feels very wrong though...', delay: 1000, nextId: 'returntobooks-booksOnly-2' },
-{ id: 'returntobooks-booksOnly-2', type: 'npc', text: 'What do you think?', delay: 1000, nextId: 'returntobooks-booksOnly-choices' },
-
-{ id: 'returntobooks-booksOnly-choices', type: 'choice', choices: [
-    { text: 'Open the book.', nextId: 'openbook-1' },
-    { text: 'Return to the runes.', nextId: 'returntorunes-1' }
-], delay: 1500 },
-
-// If returnedtoBooks is true AND returnedtoRunes is true
-{ id: 'returntobooks-both', type: 'npc', text: 'Well... here we are again. Something still feels very wrong though...', delay: 1000, nextId: 'returntobooks-both-2' },
-{ id: 'returntobooks-both-2', type: 'npc', text: 'What do you think?', delay: 1000, nextId: 'returntobooks-both-choices' },
-
-{ id: 'returntobooks-both-choices', type: 'choice', choices: [
-    { text: 'Open the book.', nextId: 'openbook-1' },
-    { text: 'Back to the runes.', nextId: 'stepintocircle-1' }
-], delay: 1500 },
-
-// If returnedtoBooks is false AND returnedtoRunes is false (First time returning to books)
-{ id: 'returntobooks-firstTime', type: 'npc', text: 'These books feel ... wrong. I don\'t think they want to be read.', delay: 1000, nextId: 'returntobooks-firstTime-2' },
-{ id: 'returntobooks-firstTime-2', type: 'npc', text: 'I really have no idea what will happen if I open one. And I\'m not sure if I wanna know.', delay: 1000, nextId: 'returntobooks-firstTime-3' },
-{ id: 'returntobooks-firstTime-3', type: 'npc', text: 'What do you think?', delay: 1000, nextId: 'returntobooks-firstTime-choices' },
-
-{ id: 'returntobooks-firstTime-choices', type: 'choice', choices: [
-    { text: 'Go look around the room.', nextId: 'lookaround-1' },
-    { text: 'Open the book.', nextId: 'openbook-1' }
-], delay: 1500 },
-
-{ id: 'lookaround-1', type: 'npc', text: 'Give me a few minutes.', delay: 1000, nextId: 'lookaround-wait', onArrival: () => { 
-    storyState.set('lookedAroundTheRoom', true); 
-    console.log('Variable $lookedAroundTheRoom set to:', storyState.variables.lookedAroundTheRoom);
-} },
-
-{ id: 'lookaround-wait', type: 'story', text: '(Waiting for 10 minutes...)', delay: 600000, nextId: 'lookaround-2' },
-
-{ id: 'lookaround-2', type: 'npc', text: 'Well. That was *wildly* productive.', delay: 1000, nextId: 'lookaround-3' },
-{ id: 'lookaround-3', type: 'npc', text: 'There are some cupboards built into the shelves, so I thought, *hey, maybe there\'s something useful in there!*', delay: 1000, nextId: 'lookaround-4' },
-{ id: 'lookaround-4', type: 'npc', text: 'And I was right—if you consider *dust* useful. Lots of dust. Probably magical, since wizards seem to hoard that kind of thing.', delay: 1000, nextId: 'lookaround-5' },
-{ id: 'lookaround-5', type: 'npc', text: 'Other treasures include: a quill with no ink, a few shattered vials, and what I can only assume was *once* bread, but now looks more like an arcane experiment gone horribly wrong.', delay: 1000, nextId: 'lookaround-6' },
-{ id: 'lookaround-6', type: 'npc', text: 'Oh, and the grand prize? A brass telescope! Which would be great... if I had anything to look at.', delay: 1000, nextId: 'lookaround-7' },
-{ id: 'lookaround-7', type: 'npc', text: 'But apparently, I *do* have a window. Didn’t notice it before—it’s high up, just a narrow slit in the stone.', delay: 1000, nextId: 'lookaround-8' },
-{ id: 'lookaround-8', type: 'npc', text: 'And what’s outside, you ask? A breathtaking view of *absolutely nothing*. Just swirling fog, stretching on forever. No sky, no ground, no landmarks. Just mist.', delay: 1000, nextId: 'lookaround-9' },
-{ id: 'lookaround-9', type: 'npc', text: 'Looking at it gives me a *very* bad feeling. But hey, at least I now know that if I ever want to admire *infinite void*, I have a front-row seat!', delay: 1000, nextId: 'lookaround-10' },
-{ id: 'lookaround-10', type: 'npc', text: 'No clues, no secret exits, no sudden bursts of insight. If there’s something useful in here, it’s doing an *excellent* job of hiding from me.', delay: 1000, nextId: 'lookaround-conditional' },
-
-// Conditional choices based on examinedRunes, examinedBooks, and readBook
-{ id: 'lookaround-conditional', type: 'story', text: '', delay: 1000, nextId: () => {
-    if (storyState.get('examinedRunes') && !storyState.get('examinedBooks')) {
-        console.log('Returning to the runes OR examining books.');
-        return 'lookaround-choice-runes-books';
-    }
-    if (storyState.get('examinedRunes') && storyState.get('examinedBooks') && !storyState.get('readBook')) {
-        console.log('Returning to the runes OR returning to the books.');
-        return 'lookaround-choice-return';
-    }
-    if (!storyState.get('examinedRunes') && storyState.get('examinedBooks')) {
-        console.log('Examining the runes OR returning to the books.');
-        return 'lookaround-choice-examine-runes-books';
-    }
-    if (!storyState.get('examinedRunes') && storyState.get('readBook')) {
-        console.log('Examining the runes (post book-reading).');
-        return 'lookaround-choice-examine-runes';
-    }
-    if (storyState.get('examinedRunes') && storyState.get('readBook')) {
-        console.log('Returning to the runes (post book-reading).');
-        return 'lookaround-choice-return-runes';
-    }
-    return 'lookaround-default';
-} },
-
-// Choice sets
-{ id: 'lookaround-choice-runes-books', type: 'choice', choices: [
-    { text: 'Return to the runes.', nextId: 'returntorunes-1' },
-    { text: 'Examine the books.', nextId: 'examinebooks-1' }
-], delay: 1500 },
-
-{ id: 'lookaround-choice-return', type: 'choice', choices: [
-    { text: 'Return to the runes.', nextId: 'returntorunes-1' },
-    { text: 'Return to the books.', nextId: 'returntobooks-1' }
-], delay: 1500 },
-
-{ id: 'lookaround-choice-examine-runes-books', type: 'choice', choices: [
-    { text: 'Examine the runes.', nextId: 'examinerunes-1' },
-    { text: 'Return to the books.', nextId: 'returntobooks-1' }
-], delay: 1500 },
-
-{ id: 'lookaround-choice-examine-runes', type: 'choice', choices: [
-    { text: 'Examine the runes.', nextId: 'examinerunes-1' }
-], delay: 1500 },
-
-{ id: 'lookaround-choice-return-runes', type: 'choice', choices: [
-    { text: 'Return to the runes.', nextId: 'returntorunes-1' }
-], delay: 1500 },
-
-// Default case (should never be reached, but just in case)
-{ id: 'lookaround-default', type: 'npc', text: 'I have no idea what to do next...', delay: 1000, nextId: 'lookaround-choice-runes-books' },
-
-{ id: 'returntorunes-1', type: 'npc', text: 'Alright, back to the runes.', delay: 1000, nextId: 'returntorunes-wait', onArrival: () => { 
-    storyState.set('returnedtoRunes', true); 
-    console.log('Variable $returnedtoRunes set to:', storyState.variables.returnedtoRunes);
-} },
-
-{ id: 'returntorunes-wait', type: 'story', text: '(Waiting 30 seconds...)', delay: 30000, nextId: 'returntorunes-2' },
-
-{ id: 'returntorunes-2', type: 'npc', text: 'They\'re still the same—drawn in silver dust, shifting when I look away, pulsing ever so slightly.', delay: 1000, nextId: 'returntorunes-3' },
-{ id: 'returntorunes-3', type: 'npc', text: 'I don\'t know if they\'re **calling** to me or **warning** me.', delay: 1000, nextId: 'returntorunes-conditional' },
-
-// Conditional branching based on readBook and examinedBooks
-{ id: 'returntorunes-conditional', type: 'story', text: '', delay: 1000, nextId: () => {
-    if (storyState.get('readBook')) {
-        console.log('Player has read the book, runes are reacting.');
-        return 'returntorunes-readbook';
-    } 
-    if (storyState.get('examinedBooks') && !storyState.get('readBook')) {
-        console.log('Player has examined books but not read one, sensing a connection.');
-        return 'returntorunes-examinedbooks';
-    } 
-    return 'returntorunes-default';
-} },
-
-// If readBook is true
-{ id: 'returntorunes-readbook', type: 'npc', text: 'I swear they’re moving even faster than before. Like they *recognize* me.', delay: 1000, nextId: 'returntorunes-readbook-2' },
-{ id: 'returntorunes-readbook-2', type: 'npc', text: 'I don’t like this.', delay: 1000, nextId: 'returntorunes-readbook-choices' },
-
-{ id: 'returntorunes-readbook-choices', type: 'choice', choices: [
-    { text: 'Step into the circle.', nextId: 'stepintocircle-1' }
-], delay: 1500 },
-
-// If examinedBooks is true and readBook is false
-{ id: 'returntorunes-examinedbooks', type: 'npc', text: 'Looking at them again, I can’t shake the feeling they’re *connected* to the books somehow. Like different pieces of the same puzzle.', delay: 1000, nextId: 'returntorunes-examinedbooks-choices' },
-
-{ id: 'returntorunes-examinedbooks-choices', type: 'choice', choices: [
-    { text: 'Return to the books.', nextId: 'returntobooks-1' },
-    { text: 'Step into the circle.', nextId: 'stepintocircle-1' }
-], delay: 1500 },
-
-{ id: 'stepintocircle-1', type: 'npc', text: 'Alright. Here we go.', delay: 1000, nextId: 'stepintocircle-2' },
-{ id: 'stepintocircle-2', type: 'npc', text: 'I\'m in the circle.', delay: 1000, nextId: 'stepintocircle-conditional' },
-
-// Conditional branching based on readBook
-{ id: 'stepintocircle-conditional', type: 'story', text: '', delay: 1000, nextId: () => {
-    if (storyState.get('readBook')) {
-        console.log('Player has read the book, runes react strongly.');
-        return 'stepintocircle-readbook';
-    } 
-    console.log('Player has not read the book, runes react differently.');
-    return 'stepintocircle-nobook';
-} },
-
-// If readBook is true
-{ id: 'stepintocircle-readbook', type: 'npc', text: 'I feel the runes ... *flare to life*. The light isn\'t soft anymore—it\'s *blinding*.', delay: 1000, nextId: 'stepintocircle-readbook-2' },
-{ id: 'stepintocircle-readbook-2', type: 'npc', text: 'I feel something... **watching** me. No, not watching—*recognizing* me.', delay: 1000, nextId: 'stepintocircle-readbook-3' },
-{ id: 'stepintocircle-readbook-3', type: 'npc', text: 'I have a bad feeling about this.', delay: 1000, nextId: 'stepintocircle-choices' },
-
-// If readBook is false
-{ id: 'stepintocircle-nobook', type: 'npc', text: 'The runes are starting to glow brighter. The light pulses, slow and steady. Sort of like ... no, exactly like my heartbeat.', delay: 1000, nextId: 'stepintocircle-choices' },
-
-// Choices after stepping into the circle
-{ id: 'stepintocircle-choices', type: 'choice', choices: [
-    { text: 'Stay still and wait.', nextId: 'staystill-1' },
-    { text: 'Step out of the circle.', nextId: 'stepout-1' }
-], delay: 1500 },
-
-{ id: 'stepout-1', type: 'npc', text: 'Alright, I\'m done with this. I\'m stepping out.', delay: 1000, nextId: 'stepout-wait1' },
-
-{ id: 'stepout-wait1', type: 'story', text: '(Waiting 5 seconds...)', delay: 5000, nextId: 'stepout-2' },
-
-{ id: 'stepout-2', type: 'npc', text: '...No.', delay: 1000, nextId: 'stepout-3' },
-{ id: 'stepout-3', type: 'npc', text: 'I—*I can\'t*.', delay: 1000, nextId: 'stepout-4' },
-{ id: 'stepout-4', type: 'npc', text: 'My legs won\'t move. It\'s like something\'s holding me in place. Not physically—no chains, no hands gripping me—but I *cannot* step out.', delay: 1000, nextId: 'stepout-conditional' },
-
-// Conditional branching based on readBook
-{ id: 'stepout-conditional', type: 'story', text: '', delay: 1000, nextId: () => {
-    if (storyState.get('readBook')) {
-        console.log('Player has read the book, feeling a familiar force.');
-        return 'stepout-readbook';
-    } 
-    console.log('Player has not read the book, force is neutral.');
-    return 'stepout-nobook';
-} },
-
-// If readBook is true
-{ id: 'stepout-readbook', type: 'npc', text: 'This feeling… it\'s the same as the book. The same dark force, the same pull, the same whispering pressure under my skin.', delay: 1000, nextId: 'stepout-readbook-2' },
-{ id: 'stepout-readbook-2', type: 'npc', text: 'But it\'s not *hurting* me this time.', delay: 1000, nextId: 'stepout-readbook-3' },
-{ id: 'stepout-readbook-3', type: 'npc', text: 'It\'s... guiding me. Holding me still. Like it *wants* something from me.', delay: 1000, nextId: 'stepout-wait2' },
-
-// If readBook is false
-{ id: 'stepout-nobook', type: 'npc', text: 'It\'s not pulling me down. It\'s just... *holding me*. Like it\'s waiting for something.', delay: 1000, nextId: 'stepout-wait2' },
-
-{ id: 'stepout-wait2', type: 'story', text: '(Waiting 5 seconds...)', delay: 5000, nextId: 'stepout-5' },
-
-{ id: 'stepout-5', type: 'npc', text: 'Wait...', delay: 1000, nextId: 'stepout-6' },
-{ id: 'stepout-6', type: 'npc', text: 'The barrier! It\'s... it’s **gone**.', delay: 1000, nextId: 'stepout-7' },
-{ id: 'stepout-7', type: 'npc', text: 'The shimmering light in front of the staircase just... *vanished*. Like it was never there.', delay: 1000, nextId: 'stepout-8' },
-{ id: 'stepout-8', type: 'npc', text: 'Damn, I feel... **drained**.', delay: 1000, nextId: 'stepout-wait3' },
-
-{ id: 'stepout-wait3', type: 'story', text: '(Waiting 10 seconds...)', delay: 10000, nextId: 'stepout-9' },
-
-{ id: 'stepout-9', type: 'npc', text: 'I don\'t know what just happened, but I know this—**I can move forward now.**', delay: 1000, nextId: 'stepout-10' },
-{ id: 'stepout-10', type: 'npc', text: 'The staircase spirals in both directions.', delay: 1000, nextId: 'stepout-11' },
-{ id: 'stepout-11', type: 'npc', text: 'I don\'t know which is safer. Or if *safe* is even an option.', delay: 1000, nextId: 'stepout-wait4' },
-
-{ id: 'stepout-wait4', type: 'story', text: '(Waiting 5 seconds...)', delay: 5000, nextId: 'stepout-12' },
-
-{ id: 'stepout-12', type: 'npc', text: '…That\'s strange.', delay: 1000, nextId: 'stepout-13' },
-{ id: 'stepout-13', type: 'npc', text: 'There\'s a smell coming from below. Faint, but… warm? Like something cooking. Spiced bread, maybe? Or herbs steeping in hot water.', delay: 1000, nextId: 'stepout-14' },
-{ id: 'stepout-14', type: 'npc', text: 'It doesn\'t make sense. This place feels abandoned, but that scent… it\'s fresh.', delay: 1000, nextId: 'stepout-15' },
-{ id: 'stepout-15', type: 'npc', text: 'What do you think I should do?', delay: 1000, nextId: 'stepout-choices' },
-
-// Choices for next action
-{ id: 'stepout-choices', type: 'choice', choices: [
-    { text: 'Go up.', nextId: 'goup-1' },
-    { text: 'Go down.', nextId: 'godown-1' }
-], delay: 1500 },
-
-{ id: 'staystill-1', type: 'npc', text: 'Alright... I\'m not moving.', delay: 1000, nextId: 'staystill-2' },
-{ id: 'staystill-2', type: 'npc', text: 'The runes are pulsing faster. Not in time with my heartbeat anymore—*ahead* of it. Like they\'re pulling something from me.', delay: 1000, nextId: 'staystill-3' },
-
-{ id: 'staystill-wait1', type: 'story', text: '(Waiting 5 seconds...)', delay: 5000, nextId: 'staystill-4' },
-
-{ id: 'staystill-4', type: 'npc', text: 'Wait...', delay: 1000, nextId: 'staystill-5' },
-{ id: 'staystill-5', type: 'npc', text: 'The barrier! It\'s... it’s **gone**.', delay: 1000, nextId: 'staystill-6' },
-{ id: 'staystill-6', type: 'npc', text: 'The shimmering light in front of the staircase just... *vanished*. Like it was never there.', delay: 1000, nextId: 'staystill-7' },
-{ id: 'staystill-7', type: 'npc', text: 'Damn, I feel... **drained**.', delay: 1000, nextId: 'staystill-wait2' },
-
-{ id: 'staystill-wait2', type: 'story', text: '(Waiting 10 seconds...)', delay: 10000, nextId: 'staystill-8' },
-
-{ id: 'staystill-8', type: 'npc', text: 'I don\'t know what just happened, but I know this—**I can move forward now.**', delay: 1000, nextId: 'staystill-9' },
-{ id: 'staystill-9', type: 'npc', text: 'The staircase spirals in both directions.', delay: 1000, nextId: 'staystill-10' },
-{ id: 'staystill-10', type: 'npc', text: 'I don\'t know which is safer. Or if *safe* is even an option.', delay: 1000, nextId: 'staystill-wait3' },
-
-{ id: 'staystill-wait3', type: 'story', text: '(Waiting 5 seconds...)', delay: 5000, nextId: 'staystill-11' },
-
-{ id: 'staystill-11', type: 'npc', text: '…That\'s strange.', delay: 1000, nextId: 'staystill-12' },
-{ id: 'staystill-12', type: 'npc', text: 'There\'s a smell coming from below. Faint, but… warm? Like something cooking. Spiced bread, maybe? Or herbs steeping in hot water.', delay: 1000, nextId: 'staystill-13' },
-{ id: 'staystill-13', type: 'npc', text: 'It doesn\'t make sense. This place feels abandoned, but that scent… it\'s fresh.', delay: 1000, nextId: 'staystill-14' },
-{ id: 'staystill-14', type: 'npc', text: 'What do you think I should do?', delay: 1000, nextId: 'staystill-choices' },
-
-// Choices for next action
-{ id: 'staystill-choices', type: 'choice', choices: [
-    { text: 'Go up.', nextId: 'goup-1' },
-    { text: 'Go down.', nextId: 'godown-1' }
-], delay: 1500 },
-
-{ id: 'goup-1', type: 'story', text: '**End of demo.**', delay: 2000 },
-
-{ id: 'godown-1', type: 'story', text: '**End of demo.**', delay: 2000 },
-
-
+{ id: 'shutbook-4', type: 'npc', text: 'Alright, give me a few minutes to catch my breath.', delay: 1000, nextId: 'shutbook-wait' },
+{ id: 'shutbook-wait', type: 'story', text: '(Waiting 5 minutes...)', delay: 1000, nextId: 'shutbook-conditional' },
+{ id: 'shutbook-conditional', type: 'npc', text: storyState.get('examinedRunes') === false ? 
+    'Okay. Let\'s hope these runes are less terrifying than that was.' 
+    : storyState.get('lookedAroundTheRoom') && storyState.get('returnedtoRunes') ? 
+    'Okay... Well, what else is there to do than step into the circle, huh?' 
+    : storyState.get('lookedAroundTheRoom') && !storyState.get('returnedtoRunes') ? 
+    'Okay... I\'m just going to return to the runes now.' 
+    : 'Okay. I am going to just ... take a look around the room now.', 
+delay: 1000, nextId: storyState.get('examinedRunes') === false ? 'examinerunes-1'
+    : storyState.get('lookedAroundTheRoom') && storyState.get('returnedtoRunes') ? 'stepintocircle-1'
+    : storyState.get('lookedAroundTheRoom') && !storyState.get('returnedtoRunes') ? 'returntorunes-1'
+    : 'lookaround-1' },
+
+    { id: 'examinerunes-1', type: 'npc', text: 'Alright, now for the runes.', delay: 1000, nextId: 'examinerunes-wait', onArrival: () => { 
+        storyState.set('examinedRunes', true); 
+        console.log('Variable $examinedRunes set to:', storyState.variables.examinedRunes);
+    } },
+    { id: 'examinerunes-wait', type: 'story', text: '(Waiting for 5 minutes...)', delay: 1000, nextId: 'examinerunes-2' },
+    { id: 'examinerunes-2', type: 'npc', text: 'They\'re drawn in silver dust, spread in a perfect circle across the floor. But the strange part? They\'re shifting.', delay: 1000, nextId: 'examinerunes-3' },
+    { id: 'examinerunes-3', type: 'npc', text: 'I\'ll look away for a second, and when I glance back, they\'ve changed. Just slightly, but enough to notice.', delay: 1000, nextId: 'examinerunes-4' },
+    { id: 'examinerunes-4', type: 'npc', text: 'I don\'t know if that means they\'re active... or if they\'re reacting to me.', delay: 1000, nextId: 'examinerunes-conditional' },
+    
+    { id: 'examinerunes-conditional', type: 'npc', text: storyState.get('readBook') ? 
+        'The symbols are pulsing... *faster* than before. I don\'t like this.\n\nI swear, the shapes—they\'re forming the same letters that burned into my hands from the book.' 
+        : storyState.get('examinedBooks') ? 
+        'I don\'t know if this is connected, but the books gave me the same feeling—like they were *watching me*.\n\nIf the books are waiting for something, maybe these runes are, too. I just don\'t know *what* they want.' 
+        : 'The runes feel... charged. Like they\'ve been waiting for something. I don\'t know if stepping into them is a good idea, but I don\'t see many other options.', 
+    delay: 1000, nextId: 'examinerunes-choices' },
+    
+    { id: 'examinerunes-choices', type: 'choice', choices: [
+        { text: 'Step into the circle.', nextId: 'stepintocircle-1' },
+        { text: 'Leave them alone.', nextId: 'leaverunes-1' }
+    ], delay: 1500 },
+
+    { id: 'lookaround-1', type: 'npc', text: 'Give me a few minutes.', delay: 1000, nextId: 'lookaround-wait', onArrival: () => { 
+        storyState.set('lookedAroundTheRoom', true); 
+        console.log('Variable $lookedAroundTheRoom set to:', storyState.variables.lookedAroundTheRoom);
+    } },
+    
+    { id: 'lookaround-wait', type: 'story', text: '(Waiting for 10 minutes...)', delay: 1000, nextId: 'lookaround-2' },
+    
+    { id: 'lookaround-2', type: 'npc', text: 'Well. That was *wildly* productive.', delay: 1000, nextId: 'lookaround-3' },
+    { id: 'lookaround-3', type: 'npc', text: 'There are some cupboards built into the shelves, so I thought, *hey, maybe there\'s something useful in there!*', delay: 1000, nextId: 'lookaround-4' },
+    { id: 'lookaround-4', type: 'npc', text: 'And I was right—if you consider *dust* useful. Lots of dust. Probably magical, since wizards seem to hoard that kind of thing.', delay: 1000, nextId: 'lookaround-5' },
+    { id: 'lookaround-5', type: 'npc', text: 'Other treasures include: a quill with no ink, a few shattered vials, and what I can only assume was *once* bread, but now looks more like an arcane experiment gone horribly wrong.', delay: 1000, nextId: 'lookaround-6' },
+    { id: 'lookaround-6', type: 'npc', text: 'Oh, and the grand prize? A brass telescope! Which would be great... if I had anything to look at.', delay: 1000, nextId: 'lookaround-7' },
+    { id: 'lookaround-7', type: 'npc', text: 'But apparently, I *do* have a window. Didn\'t notice it before—it\'s high up, just a narrow slit in the stone.', delay: 1000, nextId: 'lookaround-8' },
+    { id: 'lookaround-8', type: 'npc', text: 'And what\'s outside, you ask? A breathtaking view of *absolutely nothing*. Just swirling fog, stretching on forever. No sky, no ground, no landmarks. Just mist.', delay: 1000, nextId: 'lookaround-9' },
+    { id: 'lookaround-9', type: 'npc', text: 'Looking at it gives me a *very* bad feeling. But hey, at least I now know that if I ever want to admire *infinite void*, I have a front-row seat!', delay: 1000, nextId: 'lookaround-10' },
+    { id: 'lookaround-10', type: 'npc', text: 'No clues, no secret exits, no sudden bursts of insight. If there\'s something useful in here, it\'s doing an *excellent* job of hiding from me.', delay: 1000, nextId: 'lookaround-conditional' },
+    
+    { id: 'lookaround-conditional', type: 'npc', text: '', delay: 1000, nextId: storyState.get('examinedRunes') && !storyState.get('examinedBooks') ? 'lookaround-runes-books'
+        : storyState.get('examinedRunes') && storyState.get('examinedBooks') && !storyState.get('readBook') ? 'lookaround-return-runes-books'
+        : !storyState.get('examinedRunes') && storyState.get('examinedBooks') ? 'lookaround-examine-runes-books'
+        : !storyState.get('examinedRunes') && storyState.get('readBook') ? 'lookaround-examine-runes'
+        : storyState.get('examinedRunes') && storyState.get('readBook') ? 'lookaround-return-runes'
+        : 'lookaround-default' },
+    
+    { id: 'lookaround-runes-books', type: 'choice', choices: [
+        { text: 'Return to the runes.', nextId: 'returntorunes-1' },
+        { text: 'Examine the books.', nextId: 'examinebooks-1' }
+    ], delay: 1500 },
+    
+    { id: 'lookaround-return-runes-books', type: 'choice', choices: [
+        { text: 'Return to the runes.', nextId: 'returntorunes-1' },
+        { text: 'Return to the books.', nextId: 'returntobooks-1' }
+    ], delay: 1500 },
+    
+    { id: 'lookaround-examine-runes-books', type: 'choice', choices: [
+        { text: 'Examine the runes.', nextId: 'examinerunes-1' },
+        { text: 'Return to the books.', nextId: 'returntobooks-1' }
+    ], delay: 1500 },
+    
+    { id: 'lookaround-examine-runes', type: 'choice', choices: [
+        { text: 'Examine the runes.', nextId: 'examinerunes-1' }
+    ], delay: 1500 },
+    
+    { id: 'lookaround-return-runes', type: 'choice', choices: [
+        { text: 'Return to the runes.', nextId: 'returntorunes-1' }
+    ], delay: 1500 },
+    
+   
 
     ];
 
