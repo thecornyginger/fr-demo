@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 ], delay: 1500 },
 
 
-		
+
     ];
 
  
@@ -44,11 +44,6 @@ function displayMagicalText(text, type = 'story', callback) {
     // Make the div full width and fully visible immediately
     messageElement.style.width = '100%';
     messageElement.style.opacity = '1';
-    messageElement.style.height = 'auto';
-    const initialHeight = messageElement.offsetHeight;
-    messageElement.style.height = '0px';
-    messageElement.offsetHeight; // Force reflow
-    messageElement.style.height = initialHeight + 'px';
 
     let index = 0;
     const chars = text.split('');
