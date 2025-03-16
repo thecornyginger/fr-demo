@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
 { id: 'whereareyou-4', type: 'npc', text: 'I don\'t know how I got here. I don\'t know how long I\'ve been here.', delay: 1000, nextId: 'whereareyou-choices' },
 { id: 'whereareyou-choices', type: 'choice', choices: [
 { text: 'Describe the room.', nextId: 'describeroom-1' },
-{ text: 'Do you remember anything?', nextId: 'whatdoyouremember-1' }
+{ text: 'What do you remember?', nextId: 'whatdoyouremember-1' }
 ], delay: 1500 },
 
 { id: 'areyoualright-1', type: 'npc', text: 'Let\'s see. I woke up in a tower with no memory, no idea how I got here, and no clue who I am.', delay: 1000, nextId: 'areyoualright-2' },
@@ -623,14 +623,27 @@ function displayMagicalText(text, type = 'story', callback) {
 
     chatContainer.appendChild(messageWrapper);
 
-    // Ensure smooth scrolling to bottom
+    // Track if user is manually scrolling
+    let isManuallyScrolling = false;
+    let scrollTimeout;
+
+    // Scroll handler to detect manual scrolling
+    const handleScroll = () => {
+        isManuallyScrolling = true;
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            isManuallyScrolling = false;
+        }, 150); // Reset after 150ms of no scrolling
+    };
+
+    chatContainer.addEventListener('scroll', handleScroll);
+
+    // Ensure instant scroll to bottom if not manually scrolling
     const scrollToBottom = () => {
-        const scrollHeight = chatContainer.scrollHeight;
-        const maxScroll = chatContainer.scrollHeight - chatContainer.clientHeight;
-        chatContainer.scrollTo({
-            top: maxScroll,
-            behavior: 'smooth'
-        });
+        if (!isManuallyScrolling) {
+            const maxScroll = chatContainer.scrollHeight - chatContainer.clientHeight;
+            chatContainer.scrollTop = maxScroll;
+        }
     };
 
     // Initial scroll
@@ -684,6 +697,8 @@ function displayMagicalText(text, type = 'story', callback) {
         } else if (callback) {
             // Final scroll after all characters are revealed
             scrollToBottom();
+            // Clean up scroll listener
+            chatContainer.removeEventListener('scroll', handleScroll);
             callback();
         }
     }
