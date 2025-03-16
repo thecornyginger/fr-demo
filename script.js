@@ -1,5 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
     const chatContainer = document.getElementById('chat-container');
+    const backgroundMusic = document.getElementById('background-music-1');
+    
+    // Function to start audio playback
+    const startAudio = () => {
+        if (backgroundMusic) {
+            backgroundMusic.play()
+                .catch(error => console.log('Audio playback failed:', error));
+        }
+        // Remove the event listeners once audio is playing
+        document.removeEventListener('click', startAudio);
+        document.removeEventListener('touchstart', startAudio);
+    };
+
+    // Add event listeners for both click and touch events
+    document.addEventListener('click', startAudio);
+    document.addEventListener('touchstart', startAudio);
 
     // State management for variables
     const storyState = {
