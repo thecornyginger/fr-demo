@@ -3,7 +3,7 @@ html, body {
     height: 100%;
     width: 100%;
     overflow: hidden;
-    background-color: #1a1411;
+    background-color: #322722;
     font-family: "IM Fell English", serif;
     display: flex;
     justify-content: center;
@@ -18,28 +18,26 @@ html, body {
 #chat-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
-    height: calc(100vh - 70px); /* Subtract margin space */
-    padding-top: 20px; /* Space at the top */
-    padding-bottom: 50px; /* Space at the bottom */
+    height: 100%;
     box-sizing: border-box;
+    overflow: hidden;
+    padding: 15px 0px 30px 0px;
 }
 
 /* Chat container with safe area and full height support */
 #chat-container {
     width: 100%;
     max-width: 400px;
+    height: calc(100% - 70px);
     
-	/* Customizable padding */
-    --safe-padding: 20px;
+    /* Customizable padding */
+    --safe-padding: 15px;
 
     /* Safe area-aware padding */
-    padding-top: calc(env(safe-area-inset-top, 0px) + var(--safe-padding));
-    padding-right: calc(env(safe-area-inset-right, 0px) + var(--safe-padding));
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--safe-padding));
-    padding-left: calc(env(safe-area-inset-left, 0px) + var(--safe-padding));
-
+    padding: var(--safe-padding);
+    
     /* Ensure proper box sizing */
     box-sizing: border-box;
     border-radius: 10px;
@@ -51,14 +49,14 @@ html, body {
     justify-content: flex-start;
     gap: 10px;
     scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 
     /* Background and transition */
     background-color: #1a1411;
     transition: background-color 0.3s, border-color 0.3s;
 
-    /* Ensure it fills the full viewport height correctly */
-    min-height: 90vh;
-    height: 90dvh; /* New dynamic viewport height for better mobile support */
+    /* Ensure content stays at bottom when scrolling */
+    margin-bottom: auto;
 }
 
 
@@ -69,6 +67,13 @@ html, body {
     align-items: flex-start;
     width: 100%;
     overflow: visible;
+    margin-bottom: 0;
+}
+
+/* Ensure last message is fully visible */
+.message-wrapper:last-child {
+    padding-bottom: var(--safe-padding);
+    margin-bottom: 0;
 }
 
 /* Common message style */

@@ -608,9 +608,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ];
 
-
-
-
 	// Typewriter Effect
 function displayMagicalText(text, type = 'story', callback) {
     const messageElement = document.createElement('div');
@@ -625,7 +622,19 @@ function displayMagicalText(text, type = 'story', callback) {
     messageWrapper.appendChild(messageElement);
 
     chatContainer.appendChild(messageWrapper);
-    chatContainer.scrollTop = chatContainer.scrollHeight;
+
+    // Ensure smooth scrolling to bottom
+    const scrollToBottom = () => {
+        const scrollHeight = chatContainer.scrollHeight;
+        const maxScroll = chatContainer.scrollHeight - chatContainer.clientHeight;
+        chatContainer.scrollTo({
+            top: maxScroll,
+            behavior: 'smooth'
+        });
+    };
+
+    // Initial scroll
+    scrollToBottom();
 
     // Make the div full width and fully visible immediately
     messageElement.style.width = '100%';
@@ -666,10 +675,15 @@ function displayMagicalText(text, type = 'story', callback) {
                 delay = 40; // Slight pause at spaces
             }
             
+            // Scroll to bottom after each character
+            scrollToBottom();
+            
             requestAnimationFrame(() => {
                 setTimeout(revealNextCharacter, delay);
             });
         } else if (callback) {
+            // Final scroll after all characters are revealed
+            scrollToBottom();
             callback();
         }
     }
