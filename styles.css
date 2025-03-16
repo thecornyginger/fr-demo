@@ -199,7 +199,7 @@ html, body {
 /* Choice buttons */
 .player-choice {
     font-family: "IM Fell English", serif;
-    font-size: 16px;
+    font-size: 14px;
     flex: 1 1 48%;
     padding: 20px;
     background-color: #8f301b;
@@ -208,7 +208,6 @@ html, body {
     border-radius: 10px;
     cursor: pointer;
     text-align: center;
-    font-weight: bold;
     transform: scale(1);
     animation: fadeInScale 1.2s ease forwards;
     box-sizing: border-box;

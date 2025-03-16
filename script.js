@@ -39,8 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-   // Story
-   const story = [
+  // Story
+  const story = [
         
     // Chapter 1
     
@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
 { id: 'whereareyou-4', type: 'npc', text: 'I don\'t know how I got here. I don\'t know how long I\'ve been here.', delay: 1000, nextId: 'whereareyou-choices' },
 { id: 'whereareyou-choices', type: 'choice', choices: [
 { text: 'Describe the room.', nextId: 'describeroom-1' },
-{ text: 'What do you remember?', nextId: 'whatdoyouremember-1' }
+{ text: 'Do you remember anything?', nextId: 'whatdoyouremember-1' }
 ], delay: 1500 },
 
 { id: 'areyoualright-1', type: 'npc', text: 'Let\'s see. I woke up in a tower with no memory, no idea how I got here, and no clue who I am.', delay: 1000, nextId: 'areyoualright-2' },
@@ -608,6 +608,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ];
 
+
 	// Typewriter Effect
 function displayMagicalText(text, type = 'story', callback) {
     const messageElement = document.createElement('div');
@@ -813,10 +814,22 @@ function displayMagicalText(text, type = 'story', callback) {
 });
 
 
-// Autoplay Music
+// Autoplay Music with seamless loop
 document.addEventListener('DOMContentLoaded', () => {
     const backgroundMusic = document.getElementById('background-music');
     backgroundMusic.volume = 0.2; // Set the volume (0.0 to 1.0)
+    
+    // Create a seamless loop by starting the next play slightly before the end
+    const createSeamlessLoop = () => {
+        // Start next iteration 0.2 seconds before the end
+        const timeUntilEnd = backgroundMusic.duration - backgroundMusic.currentTime;
+        if (timeUntilEnd < 0.2) {
+            backgroundMusic.currentTime = 0;
+        }
+    };
+    
+    // Check the time frequently to ensure seamless looping
+    setInterval(createSeamlessLoop, 100);
     
     // Attempt to play the music immediately
     function playBackgroundMusic() {
