@@ -146,7 +146,7 @@ html, body {
 
 /* Animated text element */
 .message-text {
-    padding: 5px;
+    padding: 5px 10px 5px 10px;
     display: block;
     white-space: pre-wrap;
     overflow-wrap: break-word;
@@ -199,9 +199,9 @@ html, body {
 /* Choice buttons */
 .player-choice {
     font-family: "IM Fell English", serif;
-    font-size: 14px;
+    font-size: 16px;
     flex: 1 1 48%;
-    padding: 20px;
+    padding: 20px 10px 20px 10px;
     background-color: #8f301b;
     color: #fbd7ca;
     border: none;
