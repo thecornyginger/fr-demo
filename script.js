@@ -1,7 +1,62 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const chatContainer = document.getElementById('chat-container');
+    const backgroundMusic = document.getElementById('background-music-1');
     
+    // Function to start audio playback
+    const startAudio = () => {
+        if (backgroundMusic) {
+            backgroundMusic.play()
+                .catch(error => console.log('Audio playback failed:', error));
+        }
+        // Remove the event listeners once audio is playing
+        document.removeEventListener('click', startAudio);
+        document.removeEventListener('touchstart', startAudio);
+    };
+
+    // Add event listeners for both click and touch events
+    document.addEventListener('click', startAudio);
+    document.addEventListener('touchstart', startAudio);
+
+    // State management for variables
+    const storyState = {
+        variables: {},
+        
+        // Set a variable
+        set: function(name, value) {
+            this.variables[name] = value;
+            console.log(`Variable $${name} set to:`, value);
+        },
+        
+        // Get a variable
+        get: function(name) {
+            return this.variables[name];
+        },
+        
+        // Check if a variable exists
+        has: function(name) {
+            return this.variables.hasOwnProperty(name);
+        },
+
+        // Increment a numeric variable
+        increment: function(name, amount = 1) {
+            if (!this.has(name)) {
+                this.set(name, 0);
+            }
+            const newValue = Number(this.get(name)) + amount;
+            this.set(name, newValue);
+            return newValue;
+        },
+
+        // Process text and replace variables
+        processText: function(text) {
+            return text.replace(/\$([a-zA-Z][a-zA-Z0-9_]*)/g, (match, varName) => {
+                return this.has(varName) ? this.get(varName) : match;
+            });
+        }
+    };
+
     // Story
-   const story = [
+const story = [
         
     // Chapter 1
     
@@ -568,62 +623,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 ];
-
-    const chatContainer = document.getElementById('chat-container');
-    const backgroundMusic = document.getElementById('background-music-1');
-    
-    // Function to start audio playback
-    const startAudio = () => {
-        if (backgroundMusic) {
-            backgroundMusic.play()
-                .catch(error => console.log('Audio playback failed:', error));
-        }
-        // Remove the event listeners once audio is playing
-        document.removeEventListener('click', startAudio);
-        document.removeEventListener('touchstart', startAudio);
-    };
-
-    // Add event listeners for both click and touch events
-    document.addEventListener('click', startAudio);
-    document.addEventListener('touchstart', startAudio);
-
-    // State management for variables
-    const storyState = {
-        variables: {},
-        
-        // Set a variable
-        set: function(name, value) {
-            this.variables[name] = value;
-            console.log(`Variable $${name} set to:`, value);
-        },
-        
-        // Get a variable
-        get: function(name) {
-            return this.variables[name];
-        },
-        
-        // Check if a variable exists
-        has: function(name) {
-            return this.variables.hasOwnProperty(name);
-        },
-
-        // Increment a numeric variable
-        increment: function(name, amount = 1) {
-            if (!this.has(name)) {
-                this.set(name, 0);
-            }
-            const newValue = Number(this.get(name)) + amount;
-            this.set(name, newValue);
-            return newValue;
-        },
-
-        // Process text and replace variables
-        processText: function(text) {
-            return text.replace(/\$([a-zA-Z][a-zA-Z0-9_]*)/g, (match, varName) => {
-                return this.has(varName) ? this.get(varName) : match;
-            });
-        }
-    };
 
 	// Typewriter Effect
 function displayMagicalText(text, type = 'story', callback) {

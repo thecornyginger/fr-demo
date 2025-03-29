@@ -1,5 +1,5 @@
-  // Story
-  const story = [
+// Story
+const story = [
         
     // Chapter 1
     
