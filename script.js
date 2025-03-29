@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Check if story is available
     if (typeof story === 'undefined') {
-        console.error('Story not found! Make sure teststory.js is loaded before script.js');
+        console.error('Story not found!');
         return;
     }
 
