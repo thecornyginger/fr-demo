@@ -630,7 +630,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ];
 
-
 	// Typewriter Effect
 function displayMagicalText(text, type = 'story', callback) {
     const messageElement = document.createElement('div');
